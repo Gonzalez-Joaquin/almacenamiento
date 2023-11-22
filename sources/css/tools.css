@@ -1,0 +1,179 @@
+body {
+    flex-direction: column;
+}
+
+.header {
+    width: 100%;
+    height: 10%;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.btn {
+    outline: 0;
+    border: 0;
+    color: var(--black);
+    font-weight: bold;
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 6px;
+    background: var(--color);
+    transition: ease .2s;
+}
+
+.btn:is(:hover, :active, :focus) {
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.article {
+    top: 0;
+    left: -10%;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    transition: ease-out .3s;
+    color: var(--white);
+}
+
+.article.active {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+.searchForm {
+    max-width: 350px;
+    width: 100%;
+    gap: 10px;
+}
+
+.searchForm>input {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: 0;
+    outline: 0;
+    background: var(--grey);
+    font-weight: bold;
+}
+
+.article.list {
+    align-items: flex-start;
+}
+
+.table {
+    max-width: 1250px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: var(--black);
+    font-size: 1.25rem;
+}
+
+.table tr {
+    background-color: var(--grey);
+}
+
+.table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: var(--white);
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+
+.table tr:nth-child(odd) {
+    background-color: var(--white);
+}
+
+.table span {
+    width: 100%;
+    height: 100%;
+}
+
+.th-buttons {
+    width: 100px;
+}
+
+.stock {
+    width: 100px;
+}
+
+.buttons {
+    max-width: 100px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    gap: 10px;
+}
+
+.buttons>button {
+    background: 0;
+    outline: 0;
+    border: 0;
+    padding: 10px;
+    font-size: 1.25rem;
+    transition: ease .2s;
+}
+
+.buttons>button:is(:focus, :active, :hover) {
+    cursor: pointer;
+    color: var(--color);
+}
+
+.form.addTool {
+    border-radius: 10px;
+    max-width: 350px;
+    width: 100%;
+    padding: 1em 2em;
+    flex-direction: column;
+    align-items: flex-start;
+    background: var(--white);
+    color: var(--black);
+    gap: 20px;
+}
+
+.form.addTool>div {
+    width: 100%;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+}
+
+.form.addTool>div>label {
+    font-weight: 500;
+}
+
+.form.addTool>div>input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1.25rem;
+    font-weight: 400;
+    border-radius: 6px;
+    outline: 0;
+    border: 1px solid transparent;
+    caret-color: var(--color);
+    transition: ease .2s;
+}
+
+.form.addTool>div>input:is(:hover, :focus, :active) {
+    border: 1px solid var(--color)
+}
