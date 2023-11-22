@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.E.S.T N°2</title>
+    <link rel="shortcut icon" type="image/png" href="images\fav-icon.png">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body background="images/fondo1.jpg">
+    <header class="header flex">
+        <h2>Sistema de Almacenamiento | E.E.S.T.N°2</h2>
+    </header>
+    <section class="section dashboard flex">
+        <nav class="nav dashboard flex">
+            <a href="./lastMmovements.html" target="iframeArticle" class="nav-a flex">
+                <span>Inicio</span>
+            </a>
+            <a href="./tools.html" target="iframeArticle" class="nav-a flex">
+                <span>Herramientas</span>
+            </a>
+            <a href="./students.html" target="iframeArticle" class="nav-a flex">
+                <span>Alumnos</span>
+            </a>
+            <a href="./teachers.html" target="iframeArticle" class="nav-a flex">
+                <span>Profesores</span>
+            </a>
+            <a href="./materials.html" target="iframeArticle" class="nav-a flex">
+                <span>Materiales</span>
+            </a>
+            <a href="../../index.html" class="nav-a logOut flex">
+                <span>Cerrar Sesión</span>
+                <i class="fi fi-br-sign-out-alt"></i>
+            </a>
+        </nav>
+        <article class="article dashboard flex">
+            <iframe src="lastMmovements.html" name="iframeArticle" frameborder="0"></iframe>
+        </article>
+    </section>
+    <script src="../js/dashboard.js"></script>
+</body>
+
+</html>

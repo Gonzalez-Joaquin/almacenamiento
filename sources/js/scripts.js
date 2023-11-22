@@ -19,12 +19,12 @@ document.getElementById('loginForm').addEventListener('submit', event => {
 
 const loginWithUsernameAndPassword = async (username, password) => {
     const userData = { username, password }
-    const options = { method: 'POST', body: JSON.stringify(userData) }
+    const options = { method: 'POST', body: JSON.stringify(userData), headers: { 'Content-Type': 'application/json' } }
 
     fetch(`${url}users/login`, options)
         .then(response => {
             if (response.status === 200) {
-                window.location.href = 'home.html'
+                window.location.href = './sources/private/dashboard.html'
             }
         })
         .catch(err => {
