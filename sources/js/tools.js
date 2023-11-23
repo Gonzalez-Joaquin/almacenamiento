@@ -17,20 +17,30 @@ buttons.forEach((button, idxButton) => {
 
 const generateItem = params => {
     return (`
-        <tr>
+        <tr id="tool_${params.id}">
             <td>
-                <span>${params.name}</span>
+                <span class="name">${params.name}</span>
+                <input type="text" class="edit-name" value="${params.name}" style="display: none;">
             </td> 
             <td class="stock">
-                <span>${params.stock}</span>
+                <span class="stock-value">${params.stock}</span>
+                <input type="text" class="edit-stock" value="${params.stock}" style="display: none;">
             </td> 
             <td>
-                <span class="buttons">
+                <span class="buttons normal">
                     <button onClick="deleteTool(${params.id})">
                         <i class="fi fi-br-trash"></i>
                     </button>
-                    <button>
+                    <button onClick="editTool(${params.id})">
                         <i class="fi fi-br-pencil"></i>
+                    </button>
+                </span>
+                <span class="buttons edit" style="display: none;">
+                    <button onClick="cancelToolEdit(${params.id})">
+                        <i class="fi fi-br-cross"></i>
+                    </button>
+                    <button onClick="confirmEditTool(${params.id})">
+                        <i class="fi fi-br-check"></i>
                     </button>
                 </span>
             </td>
@@ -67,8 +77,8 @@ const getData = () => {
 document.getElementById('addToolForm').addEventListener('submit', event => {
     event.preventDefault()
 
-    const name = document.querySelector('#addToolForm [name = "newToolName"]').value;
-    const stock = document.querySelector('#addToolForm [name = "newToolStock"]').value;
+    const name = document.querySelector('#addToolForm [name = "newToolName"]').value
+    const stock = document.querySelector('#addToolForm [name = "newToolStock"]').value
 
     if (name.value === '' !== stock.value === '') {
         alert('Complete los campos para continuar')
@@ -78,8 +88,8 @@ document.getElementById('addToolForm').addEventListener('submit', event => {
     const data = { name, stock }
     const options = { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } }
 
-    document.querySelector('#addToolForm [name = "newToolName"]').value = '';
-    document.querySelector('#addToolForm [name = "newToolStock"]').value = '';
+    document.querySelector('#addToolForm [name = "newToolName"]').value = ''
+    document.querySelector('#addToolForm [name = "newToolStock"]').value = ''
 
     fetch(`${url}tools`, options)
         .then(response => {
@@ -92,15 +102,8 @@ document.getElementById('addToolForm').addEventListener('submit', event => {
         });
 })
 
-document.addEventListener('DOMContentLoaded', () => {
-    getData()
-})
-
 const deleteTool = (id) => {
-    const options = {
-        method: 'DELETE'
-    }
-
+    const options = { method: 'DELETE' }
     fetch(`${url}tools/${id}`, options)
         .then(response => {
             if (response.status === 200) {
@@ -111,3 +114,47 @@ const deleteTool = (id) => {
             throw new Error('Surgió un error: ', err)
         });
 }
+
+const editTool = id => {
+    document.querySelector(`#tool_${id} .name`).style.display = 'none';
+    document.querySelector(`#tool_${id} .stock-value`).style.display = 'none';
+    document.querySelector(`#tool_${id} .buttons.normal`).style.display = 'none';
+
+    document.querySelector(`#tool_${id} .edit-name`).style.display = 'inline-block';
+    document.querySelector(`#tool_${id} .edit-stock`).style.display = 'inline-block';
+    document.querySelector(`#tool_${id} .buttons.edit`).style.display = 'inline-block';
+}
+
+const cancelToolEdit = id => {
+    document.querySelector(`#tool_${id} .name`).style.display = 'inline-block';
+    document.querySelector(`#tool_${id} .stock-value`).style.display = 'inline-block';
+    document.querySelector(`#tool_${id} .buttons.normal`).style.display = 'inline-block';
+
+    document.querySelector(`#tool_${id} .edit-name`).style.display = 'none';
+    document.querySelector(`#tool_${id} .edit-stock`).style.display = 'none';
+    document.querySelector(`#tool_${id} .buttons.edit`).style.display = 'none';
+}
+
+const confirmEditTool = id => {
+    const name = document.querySelector(`#tool_${id} .edit-name`).value
+    const stock = document.querySelector(`#tool_${id} .edit-stock`).value
+
+    const data = { name, stock }
+    const options = { method: 'PUT', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } }
+
+    fetch(`${url}tools/${id}`, options)
+        .then(response => {
+            if (response.status === 200) {
+                getData()
+            }
+        })
+        .catch(err => {
+            throw new Error('Surgió un error: ', err)
+        });
+
+    cancelToolEdit(id)
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    getData()
+})
