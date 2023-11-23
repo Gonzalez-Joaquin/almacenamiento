@@ -26,7 +26,7 @@ const generateItem = params => {
             </td> 
             <td>
                 <span class="buttons">
-                    <button>
+                    <button onClick="deleteTool(${params.id})">
                         <i class="fi fi-br-trash"></i>
                     </button>
                     <button>
@@ -95,3 +95,19 @@ document.getElementById('addToolForm').addEventListener('submit', event => {
 document.addEventListener('DOMContentLoaded', () => {
     getData()
 })
+
+const deleteTool = (id) => {
+    const options = {
+        method: 'DELETE'
+    }
+
+    fetch(`${url}tools/${id}`, options)
+        .then(response => {
+            if (response.status === 200) {
+                getData()
+            }
+        })
+        .catch(err => {
+            throw new Error('Surgió un error: ', err)
+        });
+}
