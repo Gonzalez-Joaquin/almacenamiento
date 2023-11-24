@@ -28,11 +28,11 @@ const generateItem = params => {
             </td> 
             <td>
                 <span class="buttons normal">
-                    <button onClick="deleteTool(${params.id})">
-                        <i class="fi fi-br-trash"></i>
-                    </button>
                     <button onClick="editTool(${params.id})">
                         <i class="fi fi-br-pencil"></i>
+                    </button>
+                    <button onClick="deleteTool(${params.id})">
+                        <i class="fi fi-br-trash"></i>
                     </button>
                 </span>
                 <span class="buttons edit" style="display: none;">
@@ -128,7 +128,7 @@ const editTool = id => {
 const cancelToolEdit = id => {
     document.querySelector(`#tool_${id} .name`).style.display = 'inline-block';
     document.querySelector(`#tool_${id} .stock-value`).style.display = 'inline-block';
-    document.querySelector(`#tool_${id} .buttons.normal`).style.display = 'inline-block';
+    document.querySelector(`#tool_${id} .buttons.normal`).style.display = 'flex';
 
     document.querySelector(`#tool_${id} .edit-name`).style.display = 'none';
     document.querySelector(`#tool_${id} .edit-stock`).style.display = 'none';

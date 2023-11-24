@@ -112,6 +112,7 @@ body {
 
 .stock {
     width: 100px;
+    text-align: center;
 }
 
 .buttons {
@@ -121,7 +122,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row-reverse;
     gap: 10px;
 }
 
@@ -176,4 +176,29 @@ body {
 
 .form.addTool>div>input:is(:hover, :focus, :active) {
     border: 1px solid var(--color)
+}
+
+.edit-stock,
+.edit-name {
+    width: 100%;
+    padding: 6px 5px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid var(--black);
+    color: var(--black);
+    font-size: 1.25rem;
+}
+
+.edit-name:is(:hover, :focus, :active),
+.edit-stock:is(:hover, :focus, :active) {
+    border-bottom-color: var(--color);
+}
+
+.fi-br-cross {
+    font-size: 1rem;
+}
+
+.fi-br-cross:is(:focus, :hover, :active) {
+    color: var(--red, #D7263D) !important;
 }
