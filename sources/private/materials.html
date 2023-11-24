@@ -5,11 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/materials.css">
     <title>Materiales</title>
 </head>
 
-<body>
-
+<body class="body flex">
+    <div class="header flex">
+        <button class="btn subroute flex">Agregar materiales</button>
+        <button class="btn subroute flex">Listado de materiales</button>
+        <form class="searchForm flex">
+            <input type="text">
+            <button type="submit" class="btn flex">Buscar</button>
+        </form>
+    </div>
+    <section class="section">
+        <article class="article active flex">
+            <form class="form addTool flex" id="addToolForm">
+                <div class="flex">
+                    <h3>Agregar Material</h3>
+                </div>
+                <div class="flex">
+                    <label for="newToolName">Nombre:</label>
+                    <input name="newToolName" id="newToolName" type="text">
+                </div>
+                <div class="flex">
+                    <label for="newToolStock">Stock:</label>
+                    <input name="newToolStock" id="newToolStock" type="number">
+                </div>
+                <button type="submit" class="btn">
+                    Agregar
+                </button>
+            </form>
+        </article>
+        <article class="article list flex">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><span>Nombre</span></th>
+                        <th><span>Stock</span></th>
+                        <th class="th-buttons"><span></span></th>
+                    </tr>
+                </thead>
+                <tbody id="tboodyMaterials"></tbody>
+            </table>
+        </article>
+    </section>
+    <script src="../js/materials.js"></script>
 </body>
 
 </html>

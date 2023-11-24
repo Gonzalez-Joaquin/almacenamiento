@@ -5,11 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/students.css">
     <title>Estudiantes</title>
 </head>
 
-<body>
-
+<body class="body flex">
+    <div class="header flex">
+        <button class="btn subroute flex">Retiro de materiales</button>
+        <button class="btn subroute flex">Agregar alumno</button>
+        <button class="btn subroute flex">Listado de alumnos</button>
+        <form class="searchForm flex">
+            <input type="text">
+            <button type="submit" class="btn flex">Buscar</button>
+        </form>
+    </div>
+    <section class="section">
+        <article class="article  flex">
+            Retirar
+        </article>
+        <article class="article active flex">
+            <form class="form addTool flex" id="addToolForm">
+                <div class="flex">
+                    <h3>Agregar Estudiante</h3>
+                </div>
+                <div class="flex">
+                    <label for="newStudentName">Nombre:</label>
+                    <input name="newStudentName" id="newStudentName" type="text">
+                </div>
+                <div class="flex">
+                    <label for="newStudentDocument">Documento:</label>
+                    <input name="newStudentDocument" id="newStudentDocument" type="number">
+                </div>
+                <div class="flex">
+                    <label for="newStudentCourse">Curso:</label>
+                    <input name="newStudentCourse" id="newStudentCourse" type="number">
+                </div>
+                <button type="submit" class="btn">
+                    Agregar
+                </button>
+            </form>
+        </article>
+        <article class="article list flex">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><span>Nombre</span></th>
+                        <th><span>Documento</span></th>
+                        <th><span>Curso</span></th>
+                        <th class="th-buttons"><span></span></th>
+                    </tr>
+                </thead>
+                <tbody id="tboodyMaterials"></tbody>
+            </table>
+        </article>
+    </section>
+    <script src="../js/students.js"></script>
 </body>
 
 </html>
