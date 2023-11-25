@@ -18,7 +18,7 @@ body {
     height: 6%;
     padding-inline: 1em;
     justify-content: flex-start;
-    background: var(--black);
+    background: #11101d;
 }
 
 .header>h2 {
@@ -112,7 +112,11 @@ body {
 /* Dashboard */
 
 .section.dashboard {
-    background: url('../../public/images/fondo1.jpg');
+    position: relative;
+}
+
+.section.dashboard {
+    background: #e5e5e5;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -149,11 +153,13 @@ body {
     justify-content: space-between;
 }
 
+
+
 .article.dashboard {
     padding: 10px;
     width: 100%;
     height: 100%;
-    backdrop-filter: url(filters.svg#filter) blur(2px) brightness(60%);
+    /* backdrop-filter: url(filters.svg#filter) blur(2px) brightness(60%); */
 }
 
 .article.dashboard>iframe {

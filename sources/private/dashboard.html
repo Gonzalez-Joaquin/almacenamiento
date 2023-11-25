@@ -8,6 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="images\fav-icon.png">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 
 <body>
@@ -15,31 +16,61 @@
         <h2>Sistema de Almacenamiento | E.E.S.T.N°2</h2>
     </header>
     <section class="section dashboard flex">
-        <nav class="nav dashboard flex">
-            <a href="./lastMmovements.html" target="iframeArticle" class="nav-a flex">
-                <span>Inicio</span>
-            </a>
-            <a href="./tools.html" target="iframeArticle" class="nav-a flex">
-                <span>Herramientas</span>
-            </a>
-            <a href="./students.html" target="iframeArticle" class="nav-a flex">
-                <span>Alumnos</span>
-            </a>
-            <a href="./teachers.html" target="iframeArticle" class="nav-a flex">
-                <span>Profesores</span>
-            </a>
-            <a href="./materials.html" target="iframeArticle" class="nav-a flex">
-                <span>Materiales</span>
-            </a>
-            <a href="../../index.html" class="nav-a logOut flex">
-                <span>Cerrar Sesión</span>
-                <i class="fi fi-br-sign-out-alt"></i>
-            </a>
-        </nav>
+        <div class="sidebar">
+            <div class="logo-details">
+                <div class="logo_name">Técnica 2</div>
+                <i class='fi fi-br-menu-burger' id="btn"></i>
+            </div>
+            <ul class="nav-list">
+                <li class="link">
+                    <a href="./lastMmovements.html" target="iframeArticle">
+                        <i class='fi fi-br-apps'></i>
+                        <span class="links_name">Panel administrativo</span>
+                    </a>
+                    <span class="tooltip">Panel administrativo</span>
+                </li>
+                <li class="link">
+                    <a href="./tools.html" target="iframeArticle">
+                        <i class='fi fi-br-wrench-simple'></i>
+                        <span class="links_name">Herramientas</span>
+                    </a>
+                    <span class="tooltip">Herramientas</span>
+                </li>
+                <li class="link">
+                    <a href="./students.html" target="iframeArticle">
+                        <i class='fi fi-br-users'></i>
+                        <span class="links_name">Alumnos</span>
+                    </a>
+                    <span class="tooltip">Alumnos</span>
+                </li>
+                <li class="link">
+                    <a href="./teachers.html" target="iframeArticle">
+                        <i class='fi fi-br-graduation-cap'></i>
+                        <span class="links_name">Docentes</span>
+                    </a>
+                    <span class="tooltip">Docentes</span>
+                </li>
+                <li class="link">
+                    <a href="./materials.html" target="iframeArticle">
+                        <i class='fi fi-br-ruler-combined'></i>
+                        <span class="links_name">Materiales</span>
+                    </a>
+                    <span class="tooltip">Materiales</span>
+                </li>
+                <li>
+                    <a href="../../index.html">
+                        <i class='fi fi-br-exit'></i>
+                        <span class="links_name">Cerrar Sesión</span>
+                    </a>
+                    <span class="tooltip">Cerrar Sesión</span>
+                </li>
+            </ul>
+        </div>
         <article class="article dashboard flex">
             <iframe src="tools.html" name="iframeArticle" frameborder="0"></iframe>
         </article>
     </section>
+    <script src="../js/dashboard.js"></script>
 </body>
 
 </html>
