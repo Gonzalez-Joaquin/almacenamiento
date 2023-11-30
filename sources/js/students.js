@@ -145,6 +145,12 @@ document.getElementById('addStudentsForm').addEventListener('submit', event => {
 
 const openEdit = () => {
     const editContainer = document.getElementById('editEntry')
+
+    return (`
+        <>
+        
+        </>
+    `)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
