@@ -2,6 +2,9 @@ const url = 'http://localhost:5000/'
 
 const buttons = document.querySelectorAll('.subroute')
 const articles = document.querySelectorAll('.article')
+const popUp = document.getElementById('popUp')
+const popUpInside = document.getElementById('containerPopUp')
+const popUpTitle = document.getElementById('titlePopUp')
 
 buttons.forEach((button, idxButton) => {
     button.addEventListener('click', () => {
@@ -155,6 +158,32 @@ const confirmEditTool = id => {
     cancelToolEdit(id)
 }
 
+const validateNumber = event => {
+    if (event) {
+        const inputValue = event.target.value;
+
+        if (!/^[0-9]+$/.test(inputValue)) {
+            event.target.value = inputValue.replace(/[^0-9]/g, '')
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    const inputElements = document.querySelectorAll('input')
+    inputElements.forEach((input) => { if (input.type === 'number') { input.addEventListener('input', validateNumber) } })
+
     getData()
 })
+
+const openPopUp = (type) => {
+    popUp.classList.add('active')
+    if (type === 'retiro') {
+        popUpTitle.innerHTML = 'Retiro de herramientas'
+        return
+    }
+}
+
+const closePopUp = () => {
+    popUp.classList.remove('active')
+    popUpInside.innerHTML = ''
+}

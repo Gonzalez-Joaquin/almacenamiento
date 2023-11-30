@@ -14,10 +14,6 @@
         <button class="btn subroute flex">Retiro de materiales</button>
         <button class="btn subroute flex">Agregar alumno</button>
         <button class="btn subroute flex">Listado de alumnos</button>
-        <form class="searchForm flex">
-            <input type="text">
-            <button type="submit" class="btn flex">Buscar</button>
-        </form>
     </div>
     <section class="section">
         <article class="article  flex">
@@ -103,7 +99,7 @@
                         <th><span>Curso</span></th>
                         <th><span>Grupo</span></th>
                         <th><span>Coperadora</span></th>
-                        <th><span>Recibo</span></th>
+                        <th><span>Número de Recibo</span></th>
                         <th class="th-buttons"><span></span></th>
                     </tr>
                 </thead>
@@ -115,10 +111,11 @@
         <form class="flex" id="editEntryForm">
             <div class="flex" style="justify-content: space-between; width: 100%;">
                 <h3>Editar Estudiante</h3>
-                <button type="reset" class="crossBtn">
+                <button type="reset" class="crossBtn" onclick="closeEdit()">
                     <i class="fi fi-br-cross"></i>
                 </button>
             </div>
+            <div class="container flex" id="containerEditEntry"></div>
         </form>
     </div>
     <script src="../js/students.js"></script>

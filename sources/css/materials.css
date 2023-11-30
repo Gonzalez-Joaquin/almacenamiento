@@ -144,7 +144,7 @@ body {
     color: var(--primary);
 }
 
-.form.addTool {
+.form.addMaterial {
     border-radius: 10px;
     max-width: 350px;
     width: 100%;
@@ -156,18 +156,18 @@ body {
     gap: 20px;
 }
 
-.form.addTool>div {
+.form.addMaterial>div {
     width: 100%;
     flex-direction: column;
     gap: 5px;
     align-items: flex-start;
 }
 
-.form.addTool>div>label {
+.form.addMaterial>div>label {
     font-weight: 500;
 }
 
-.form.addTool>div>input {
+.form.addMaterial>div>input {
     width: 100%;
     padding: 10px 15px;
     font-size: 1.25rem;
@@ -179,7 +179,7 @@ body {
     transition: ease .2s;
 }
 
-.form.addTool>div>input:is(:hover, :focus, :active) {
+.form.addMaterial>div>input:is(:hover, :focus, :active) {
     border: 1px solid var(--primary)
 }
 
@@ -206,4 +206,110 @@ body {
 
 .fi-br-cross:is(:focus, :hover, :active) {
     color: var(--red, #D7263D) !important;
+}
+
+.popUp {
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #161616b2;
+    transition: ease-out .2s;
+}
+
+.popUp.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popUp.active>form {
+    scale: 1;
+}
+
+.popUp>form {
+    position: relative;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 10px;
+    max-width: 300px;
+    width: 100%;
+    padding: 1em 2em;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background: var(--white);
+    color: var(--black);
+    gap: 20px;
+    scale: .7;
+    transition: ease-out .3s;
+}
+
+.crossBtn {
+    padding: 10px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--white);
+    border: 0;
+    outline: 0;
+    transition: ease .2s;
+}
+
+.crossBtn:is(:hover, :active, :focus) {
+    cursor: pointer;
+}
+
+.container {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.containerButtons {
+    width: 100%;
+    gap: 20px;
+}
+
+.btn-popUp {
+    background: 0;
+    outline: 0;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 6px;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: ease .2s;
+}
+
+.btn-popUp:is(:hover, :focus, :active),
+.btn-popUp.red:is(:hover, :focus, :active) {
+    cursor: pointer;
+    color: var(--black);
+    border-color: var(--black);
+    border-radius: 4px;
+}
+
+.btn-popUp.red {
+    color: var(--red, #D7263D);
+    border-color: var(--red, #D7263D);
+}
+
+.input {
+    max-width: 300px;
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1.25rem;
+    font-weight: 400;
+    border-radius: 6px;
+    outline: 0;
+    border: 1px solid transparent;
+    caret-color: var(--primary);
+    transition: ease .2s;
+}
+
+.input:is(:hover, :focus, :active) {
+    border: 1px solid var(--primary)
 }

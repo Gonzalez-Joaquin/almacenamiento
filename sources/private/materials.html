@@ -13,24 +13,24 @@
     <div class="header flex">
         <button class="btn subroute flex">Agregar materiales</button>
         <button class="btn subroute flex">Listado de materiales</button>
-        <form class="searchForm flex">
-            <input type="text">
-            <button type="submit" class="btn flex">Buscar</button>
-        </form>
     </div>
     <section class="section">
         <article class="article active flex">
-            <form class="form addTool flex" id="addToolForm">
+            <form class="form addMaterial flex" id="addMaterialForm">
                 <div class="flex">
                     <h3>Agregar Material</h3>
                 </div>
                 <div class="flex">
-                    <label for="newToolName">Nombre:</label>
-                    <input name="newToolName" id="newToolName" type="text">
+                    <label for="newMaterialName">Nombre</label>
+                    <input name="newMaterialName" id="newMaterialName" type="text">
                 </div>
                 <div class="flex">
-                    <label for="newToolStock">Stock:</label>
-                    <input name="newToolStock" id="newToolStock" type="number">
+                    <label for="newMaterialStock">Stock</label>
+                    <input name="newMaterialStock" id="newMaterialStock" type="number">
+                </div>
+                <div class="flex">
+                    <label for="newMaterialLimit">Limite por estudiante</label>
+                    <input type="number" id="newMaterialLimit" name="newMaterialLimit">
                 </div>
                 <button type="submit" class="btn">
                     Agregar
@@ -43,6 +43,7 @@
                     <tr>
                         <th><span>Nombre</span></th>
                         <th><span>Stock</span></th>
+                        <th><span>Limite por estudiante</span></th>
                         <th class="th-buttons"><span></span></th>
                     </tr>
                 </thead>
@@ -50,6 +51,17 @@
             </table>
         </article>
     </section>
+    <div id="editEntry" class="popUp flex">
+        <form class="flex" id="editEntryForm">
+            <div class="flex" style="justify-content: space-between; width: 100%;">
+                <h3>Editar Material</h3>
+                <button type="reset" class="crossBtn" onclick="closeEdit()">
+                    <i class="fi fi-br-cross"></i>
+                </button>
+            </div>
+            <div class="container flex" id="containerEditEntry"></div>
+        </form>
+    </div>
     <script src="../js/materials.js"></script>
 </body>
 

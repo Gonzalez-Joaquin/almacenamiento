@@ -350,12 +350,24 @@ body {
 }
 
 .popUp {
+    opacity: 0;
+    visibility: hidden;
     width: 100%;
     height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     background: #161616b2;
+    transition: ease-out .2s;
+}
+
+.popUp.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popUp.active>form {
+    scale: 1;
 }
 
 .popUp>form {
@@ -371,6 +383,8 @@ body {
     background: var(--white);
     color: var(--black);
     gap: 20px;
+    scale: .7;
+    transition: ease-out .3s;
 }
 
 .crossBtn {
@@ -386,6 +400,46 @@ body {
 
 .crossBtn:is(:hover, :active, :focus) {
     cursor: pointer;
+}
+
+.container {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.containerButtons {
+    width: 100%;
+    gap: 20px;
+}
+
+.btn-popUp {
+    background: 0;
+    outline: 0;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 6px;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: ease .2s;
+}
+
+.btn-popUp:is(:hover, :focus, :active),
+.btn-popUp.red:is(:hover, :focus, :active) {
+    cursor: pointer;
+    color: var(--black);
+    border-color: var(--black);
+    border-radius: 4px;
+}
+
+.btn-popUp.red {
+    color: var(--red, #D7263D);
+    border-color: var(--red, #D7263D);
+}
+
+.group {
+    text-transform: uppercase;
 }
 
 @media screen and (max-width: 640px) {
