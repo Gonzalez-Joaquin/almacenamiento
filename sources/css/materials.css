@@ -1,5 +1,5 @@
 :root {
-    --primary: #A7754D;
+    --color-primary: #A7754D;
 }
 
 body {
@@ -22,7 +22,7 @@ body {
     color: var(--white);
     padding: 10px 20px;
     border-radius: 6px;
-    background: var(--primary);
+    background: var(--color-primary);
     transition: ease .2s;
 }
 
@@ -141,7 +141,7 @@ body {
 
 .buttons>button:is(:focus, :active, :hover) {
     cursor: pointer;
-    color: var(--primary);
+    color: var(--color-primary);
 }
 
 .form.addMaterial {
@@ -175,12 +175,12 @@ body {
     border-radius: 6px;
     outline: 0;
     border: 1px solid transparent;
-    caret-color: var(--primary);
+    caret-color: var(--color-primary);
     transition: ease .2s;
 }
 
 .form.addMaterial>div>input:is(:hover, :focus, :active) {
-    border: 1px solid var(--primary)
+    border: 1px solid var(--color-primary)
 }
 
 .edit-stock,
@@ -197,7 +197,7 @@ body {
 
 .edit-name:is(:hover, :focus, :active),
 .edit-stock:is(:hover, :focus, :active) {
-    border-bottom-color: var(--primary);
+    border-bottom-color: var(--color-primary);
 }
 
 .fi-br-cross {
@@ -276,8 +276,8 @@ body {
 .btn-popUp {
     background: 0;
     outline: 0;
-    border: 2px solid var(--primary);
-    color: var(--primary);
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
     border-radius: 6px;
     font-weight: bold;
     padding: 10px 20px;
@@ -306,10 +306,10 @@ body {
     border-radius: 6px;
     outline: 0;
     border: 1px solid transparent;
-    caret-color: var(--primary);
+    caret-color: var(--color-primary);
     transition: ease .2s;
 }
 
 .input:is(:hover, :focus, :active) {
-    border: 1px solid var(--primary)
+    border: 1px solid var(--color-primary)
 }

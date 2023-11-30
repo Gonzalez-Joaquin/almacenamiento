@@ -1,5 +1,7 @@
 const url = 'http://localhost:5000/'
 
+let actualyData = []
+let toolSelected = []
 const buttons = document.querySelectorAll('.subroute')
 const articles = document.querySelectorAll('.article')
 const popUp = document.getElementById('popUp')
@@ -70,6 +72,7 @@ const getData = () => {
             return response.json()
         })
         .then(data => {
+            actualyData = data
             mapData(data)
         })
         .catch(err => {
@@ -158,6 +161,16 @@ const confirmEditTool = id => {
     cancelToolEdit(id)
 }
 
+const fetchTool = async (id) => {
+    const options = { method: 'GET' }
+    try {
+        const response = await fetch(`${url}tools/${id}`, options)
+        const data = await response.json()
+        return data[0]
+    }
+    catch (err) { throw new Error(err) }
+}
+
 const validateNumber = event => {
     if (event) {
         const inputValue = event.target.value;
@@ -168,17 +181,91 @@ const validateNumber = event => {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const inputElements = document.querySelectorAll('input')
-    inputElements.forEach((input) => { if (input.type === 'number') { input.addEventListener('input', validateNumber) } })
+const option = body => {
+    if (body) {
+        return (`
+            <div class="search_option flex" id="search_${body.id}" onclick="addToolForRetiro(${body.id})">
+                <span>${body.name}</span>
+                <span>${body.stock}</span>
+            </div>
+        `)
+    }
+}
 
-    getData()
-})
+const searchOptions = param => {
+    const container = document.getElementById('search_options');
+    if (param === '') return container.innerHTML = ''
+
+    const newData = actualyData.filter(item => item.name.toUpperCase().includes(param.toUpperCase()))
+
+    if (!newData) return `<div class="search_option flex"><span>No se encontraron herramientas</span></div>`
+
+    container.innerHTML = ''
+
+    newData.forEach(tool => container.insertAdjacentHTML('beforeend', option(tool)))
+}
+
+const addToolForRetiro = async (id) => {
+    if (!toolSelected.find(item => item.id === id)) {
+        const body = await fetchTool(id)
+        toolSelected = [...toolSelected, body]
+        mapRetiro()
+    }
+}
+
+const mapRetiro = () => {
+    const container = document.getElementById('container_retiro')
+    container.innerHTML = ''
+
+    toolSelected.map(body => {
+        const newObject = (`
+            <div class="item flex">
+                <label for="toolMount_${body.id}" >${body.name}</label>
+                <input type="text" class="input" name="toolMount_${body.id}" id="toolMount_${body.id}">
+                <button type="button" onClick="deleteToolSelected(${body.id})"><i class="fi fi-br-cross"></i></button>
+            </div>
+            `)
+        container.insertAdjacentHTML('beforeend', newObject)
+    })
+
+}
+
+const generateRetiro = () => {
+    return (`
+    <div class="containerInsidePopUp flex">
+        <div class="search_container">
+            <div class="search_field">
+                <input type="text" class="input" id="searchForRetiro" placeholder="Buscar..." autocomplete="off">
+                <i class="fi fi-br-search"></i>
+            </div>
+            <div class="flex" id="search_options"></div>
+        </div>
+        <div class="flex" id="container_retiro"></div>
+    </div>
+    <div class="containerButtons flex">
+        <button type="reset" onclick="closePopUp()" class="btn-popUp red">
+            Cancelar
+        </button>
+        <button type="submit" class="btn-popUp">
+            Agregar
+        </button>
+    </div>
+    `)
+}
+
+const deleteToolSelected = id => { toolSelected = toolSelected.filter(item => item.id !== id); mapRetiro() }
 
 const openPopUp = (type) => {
     popUp.classList.add('active')
     if (type === 'retiro') {
         popUpTitle.innerHTML = 'Retiro de herramientas'
+        popUpInside.insertAdjacentHTML('beforeend', generateRetiro())
+        const search = document.getElementById('searchForRetiro')
+
+        if (!search) return
+
+        search.addEventListener('input', e => searchOptions(e.target.value))
+
         return
     }
 }
@@ -187,3 +274,10 @@ const closePopUp = () => {
     popUp.classList.remove('active')
     popUpInside.innerHTML = ''
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const inputElements = document.querySelectorAll('input')
+    inputElements.forEach((input) => { if (input.type === 'number') { input.addEventListener('input', validateNumber) } })
+
+    getData()
+})
