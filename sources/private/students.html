@@ -24,7 +24,7 @@
             Retirar
         </article>
         <article class="article active flex">
-            <form class="form flex" id="addToolForm">
+            <form class="form flex" id="addStudentsForm">
                 <div class="flex">
                     <h3>Agregar Estudiante</h3>
                 </div>
@@ -38,31 +38,55 @@
                         <input type="text" name="newStudentSurname" id="newStudentSurname" class="input">
                     </div>
                 </div>
-                <div class="ctn-input">
-                    <label for="newStudentDocs" class="label">Documento</label>
-                    <input type="number" name="newStudentDocs" id="newStudentDocs" class="input">
+                <div class="ctn-inputs flex">
+                    <div class="ctn-input">
+                        <label for="newStudentDocs" class="label">Documento</label>
+                        <input type="number" name="newStudentDocs" id="newStudentDocs" onchange="validateNumber()"
+                            class="input">
+                    </div>
+                    <div class="ctn-inputs-course flex">
+                        <div class="ctn-input">
+                            <label for="newStudentCourse" class="label">Curso</label>
+                            <input type="number" name="newStudentCourse" id="newStudentCourse"
+                                onchange="validateNumber()" class="input">
+                        </div>
+                        <div class="ctn-input">
+                            <label for="newStudentDivision" class="label">División</label>
+                            <input type="number" name="newStudentDivision" id="newStudentDivision"
+                                onchange="validateNumber()" class="input">
+                        </div>
+                    </div>
                 </div>
                 <div class="ctn-inputs flex">
                     <div class="ctn-input">
-                        <label for="newStudentCourse" class="label">Curso</label>
-                        <input type="text" name="newStudentCourse" id="newStudentCourse" class="input">
+                        <label for="newStudentGroup" class="label">Grupo</label>
+                        <input type="text" maxlength="1" name="newStudentGroup" id="newStudentGroup" class="input">
                     </div>
                     <div class="ctn-input">
-                        <label for="newStudentDivision" class="label">División</label>
-                        <input type="number" name="newStudentDivision" id="newStudentDivision" class="input">
+                        <label for="newStudentCicle" class="label">Ciclo</label>
+                        <input type="number" name="newStudentCicle" id="newStudentCicle" onchange="validateNumber()"
+                            class="input">
                     </div>
                 </div>
-                <div class="checkbox-wrapper-4">
-                    <input class="inp-cbx" id="morning" type="checkbox" />
-                    <label class="cbx" for="morning"><span>
-                            <svg width="12px" height="10px">
-                                <use xlink:href="#check-4"></use>
-                            </svg></span><span>Pago la coperadora?</span></label>
-                    <svg class="inline-svg">
-                        <symbol id="check-4" viewbox="0 0 12 10">
-                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                        </symbol>
-                    </svg>
+                <div class="ctn-inputs-check flex">
+                    <div class="checkbox-wrapper-4">
+                        <input class="inp-cbx" id="newStudentCooperator" name="newStudentCooperator" type="checkbox"
+                            onchange="handleChangeCheckbox()" />
+                        <label class="cbx" for="newStudentCooperator"><span>
+                                <svg width="12px" height="10px">
+                                    <use xlink:href="#check-4"></use>
+                                </svg></span><span>Pago la coperadora?</span></label>
+                        <svg class="inline-svg">
+                            <symbol id="check-4" viewbox="0 0 12 10">
+                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </symbol>
+                        </svg>
+                    </div>
+                    <div class="receipt-input flex">
+                        <label for="newStudentReceipt">Número de recibo:</label>
+                        <input type="number" name="newStudentReceipt" onchange="validateNumber()"
+                            id="newStudentReceipt">
+                    </div>
                 </div>
                 <button type="submit" class="btn">
                     Agregar
@@ -74,15 +98,29 @@
                 <thead>
                     <tr>
                         <th><span>Nombre</span></th>
+                        <th><span>Apellido</span></th>
                         <th><span>Documento</span></th>
                         <th><span>Curso</span></th>
+                        <th><span>Grupo</span></th>
+                        <th><span>Coperadora</span></th>
+                        <th><span>Recibo</span></th>
                         <th class="th-buttons"><span></span></th>
                     </tr>
                 </thead>
-                <tbody id="tboodyMaterials"></tbody>
+                <tbody id="tboodyStudents"></tbody>
             </table>
         </article>
     </section>
+    <div id="editEntry" class="popUp flex">
+        <form class="flex" id="editEntryForm">
+            <div class="flex" style="justify-content: space-between; width: 100%;">
+                <h3>Editar Estudiante</h3>
+                <button type="reset" class="crossBtn">
+                    <i class="fi fi-br-cross"></i>
+                </button>
+            </div>
+        </form>
+    </div>
     <script src="../js/students.js"></script>
 </body>
 

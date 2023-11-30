@@ -1,14 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.querySelector(".sidebar")
     const closeBtn = document.querySelector("#btn")
-    const searchBtn = document.querySelector(".fi-br-search")
 
     closeBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("open")
-        menuBtnChange()
-    })
-
-    searchBtn.addEventListener("click", () => {
         sidebar.classList.toggle("open")
         menuBtnChange()
     })
