@@ -21,13 +21,15 @@ const loginWithUsernameAndPassword = async (username, password) => {
     const userData = { username, password }
     const options = { method: 'POST', body: JSON.stringify(userData), headers: { 'Content-Type': 'application/json' } }
 
-    fetch(`${url}users/login`, options)
-        .then(response => {
-            if (response.status === 200) {
-                window.location.href = './sources/private/dashboard.html'
-            }
-        })
-        .catch(err => {
-            throw new Error('Surgió un error: ', err)
-        })
+    try {
+        const response = await fetch(`${url}users/login`, options)
+        if (response.status === 200) {
+            return window.location.href = './sources/private/dashboard.html'
+        } else {
+            throw new Error('No se encontro el usuario.')
+        }
+    }
+    catch (err) {
+        throw new Error(err)
+    }
 }

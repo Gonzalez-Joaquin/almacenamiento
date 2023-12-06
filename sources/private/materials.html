@@ -25,6 +25,56 @@
                     <input name="newMaterialName" id="newMaterialName" type="text">
                 </div>
                 <div class="flex">
+                    <label for="newMaterialCategory">Proyecto</label>
+                    <div class="select">
+                        <button type="button" name="newMaterialCategory" id="newMaterialCategory"
+                            onclick="toggleSelect()">
+                            <span>Seleccione categoría</span>
+                            <i class="fi fi-br-angle-right"></i>
+                        </button>
+                        <div class="options flex" id="categoryBody"></div>
+                    </div>
+                </div>
+                <script>
+                    const getDataCategory = async () => {
+                        const options = { method: 'GET' };
+                        try {
+                            const response = await fetch(`http://localhost:5000/category`, options);
+                            const data = await response.json();
+                            return data;
+                        } catch (err) {
+                            throw new Error(err);
+                        }
+                    }
+
+                    const populateCategoryOptions = async () => {
+                        const categoryBody = document.getElementById('categoryBody');
+                        try {
+                            const data = await getDataCategory();
+                            categoryBody.innerHTML = data.map(item => {
+                                return (`
+                                <div onclick="handleClick('${item.name}')">
+                                    <span>${item.name}</span>
+                                </div>
+                                `)
+                            }).join('');
+                        } catch (error) {
+                            console.error('Error fetching category data:', error.message);
+                        }
+                    }
+
+                    populateCategoryOptions()
+
+                    const toggleSelect = () => {
+                        document.getElementById('categoryBody').classList.toggle('active')
+                    }
+
+                    const handleClick = param => {
+                        document.querySelector('#newMaterialCategory span').innerHTML = param
+                        document.getElementById('categoryBody').classList.remove('active')
+                    }
+                </script>
+                <div class="flex">
                     <label for="newMaterialStock">Stock</label>
                     <input name="newMaterialStock" id="newMaterialStock" type="number">
                 </div>
@@ -43,6 +93,7 @@
                     <tr>
                         <th><span>Nombre</span></th>
                         <th><span>Stock</span></th>
+                        <th><span>Proyecto</span></th>
                         <th><span>Limite por estudiante</span></th>
                         <th class="th-buttons"><span></span></th>
                     </tr>

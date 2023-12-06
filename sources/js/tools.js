@@ -1,7 +1,8 @@
 const url = 'http://localhost:5000/'
 
 let actualyData = []
-let toolSelected = []
+let toolsSelected = []
+
 const buttons = document.querySelectorAll('.subroute')
 const articles = document.querySelectorAll('.article')
 const popUp = document.getElementById('popUp')
@@ -26,7 +27,7 @@ const generateItem = params => {
             <td>
                 <span class="name">${params.name}</span>
                 <input type="text" class="edit-name" value="${params.name}" style="display: none;">
-            </td> 
+            </td>
             <td class="stock">
                 <span class="stock-value">${params.stock}</span>
                 <input type="text" class="edit-stock" value="${params.stock}" style="display: none;">
@@ -73,6 +74,7 @@ const getData = () => {
         })
         .then(data => {
             actualyData = data
+            sessionStorage.setItem('toolsData', JSON.stringify(data))
             mapData(data)
         })
         .catch(err => {
@@ -206,10 +208,13 @@ const searchOptions = param => {
 }
 
 const addToolForRetiro = async (id) => {
-    if (!toolSelected.find(item => item.id === id)) {
+    if (!toolsSelected.find(item => item.id === id)) {
         const body = await fetchTool(id)
-        toolSelected = [...toolSelected, body]
-        mapRetiro()
+        toolsSelected = [...toolsSelected, { id: body.id, name: body.name, stock: body.stock, value: 0 }]
+        return mapRetiro()
+    } else {
+        toolsSelected = toolsSelected.filter(item => id !== item.id)
+        return mapRetiro()
     }
 }
 
@@ -217,11 +222,11 @@ const mapRetiro = () => {
     const container = document.getElementById('container_retiro')
     container.innerHTML = ''
 
-    toolSelected.map(body => {
+    toolsSelected.map(body => {
         const newObject = (`
             <div class="item flex">
                 <label for="toolMount_${body.id}" >${body.name}</label>
-                <input type="text" class="input" name="toolMount_${body.id}" id="toolMount_${body.id}">
+                <input type="text" class="input" name="toolMount_${body.id}" id="toolMount_${body.id}" value={${body.value}}>
                 <button type="button" onClick="deleteToolSelected(${body.id})"><i class="fi fi-br-cross"></i></button>
             </div>
             `)
@@ -279,5 +284,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputElements = document.querySelectorAll('input')
     inputElements.forEach((input) => { if (input.type === 'number') { input.addEventListener('input', validateNumber) } })
 
-    getData()
+    const storedData = sessionStorage.getItem('toolsData')
+
+    if (storedData) {
+        actualyData = JSON.parse(storedData)
+        mapData(actualyData)
+    } else {
+        getData()
+    }
 })

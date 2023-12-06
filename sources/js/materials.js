@@ -27,6 +27,9 @@ const generateItem = params => {
             <td> 
                 <span>${params.stock}</span> 
             </td>
+            <td>
+                <span>${params.category === undefined || params.category === '' ? '-' : params.category}</span>
+            </td>
             <td> 
                 <span>${params.limit_materials}</span> 
             </td>
@@ -68,6 +71,7 @@ const getData = async () => {
     try {
         const response = await fetch(`${url}materials`, options)
         const data = await response.json()
+        sessionStorage.setItem('materialsData', JSON.stringify(data))
         mapData(data)
     }
     catch (err) { throw new Error(err) }
@@ -154,10 +158,17 @@ document.getElementById('addMaterialForm').addEventListener('submit', e => {
     const data = {
         name: e.target.newMaterialName.value,
         stock: e.target.newMaterialStock.value,
+        category: document.querySelector('#newMaterialCategory span').textContent,
         limit_materials: e.target.newMaterialLimit.value
     }
 
-    if (!data.name || !data.stock) return alert('Complete los campos para continuar')
+    console.log(data.category)
+
+    if (!data.name || !data.stock || data.category === 'Seleccione categoría') return alert('Complete los campos para continuar')
+
+    articles.forEach((item, idx) => {
+        idx === 1 ? item.classList.add('active') : item.classList.remove('active')
+    })
 
     sendEntry(data)
 })
@@ -166,5 +177,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputElements = document.querySelectorAll('input')
     inputElements.forEach((input) => { if (input.type === 'number') { input.addEventListener('input', validateNumber) } })
 
-    getData()
+    const storedData = sessionStorage.getItem('materialsData')
+
+    if (storedData) {
+        actualyData = JSON.parse(storedData)
+        mapData(actualyData)
+    } else {
+        getData()
+    }
 })

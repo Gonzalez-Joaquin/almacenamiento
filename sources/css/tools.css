@@ -291,6 +291,7 @@ body {
 .containerButtons {
     width: 100%;
     gap: 20px;
+    justify-content: flex-end;
 }
 
 .btn-popUp {

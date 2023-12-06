@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
         menuBtnChange()
     })
 
-    function menuBtnChange() {
+    const menuBtnChange = () => {
         if (sidebar.classList.contains("open")) {
-            closeBtn.classList.replace("fi-br-menu-burger", "fi-br-bars-sort");
+            closeBtn.classList.replace("fi-br-menu-burger", "fi-br-bars-sort")
         } else {
-            closeBtn.classList.replace("fi-br-bars-sort", "fi-br-menu-burger");
+            closeBtn.classList.replace("fi-br-bars-sort", "fi-br-menu-burger")
         }
     }
 })

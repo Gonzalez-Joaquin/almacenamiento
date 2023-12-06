@@ -5,6 +5,10 @@ const articles = document.querySelectorAll('.article')
 const tbody = document.getElementById('tboodyStudents')
 const editContainer = document.getElementById('editEntry')
 const containerEditEntry = document.getElementById('containerEditEntry')
+const popUp = document.getElementById('popUp')
+const popUpInside = document.getElementById('containerPopUp')
+const popUpTitle = document.getElementById('titlePopUp')
+const popUpForm = document.getElementById('popUpMaterials')
 
 buttons.forEach((button, idxButton) => {
     button.addEventListener('click', () => {
@@ -21,12 +25,12 @@ buttons.forEach((button, idxButton) => {
 const generateItem = params => {
     return (`
         <tr id="tool_${params.id}">
+            <td>
+                <span>${params.surname}</span> 
+            </td>
             <td> 
                 <span>${params.name}</span> 
             </td> 
-            <td> 
-                <span>${params.surname}</span> 
-            </td>
             <td> 
                 <span>${params.document}</span> 
             </td> 
@@ -57,8 +61,12 @@ const generateItem = params => {
 }
 
 const mapData = (data) => {
+    const mapeableData = data.sort((prev, next) => {
+        return prev.surname.localeCompare(next.surname)
+    })
+
     tbody.innerHTML = ''
-    data.forEach(item => {
+    mapeableData.forEach(item => {
         const itemHtml = generateItem(item);
         tbody.insertAdjacentHTML('beforeend', itemHtml)
     })
@@ -67,14 +75,23 @@ const mapData = (data) => {
 const handleChangeCheckbox = () => document.querySelector('.receipt-input').classList.toggle('active')
 
 const validateNumber = event => {
-    if (event) {
-        const inputValue = event.target.value;
-
-        if (!/^[0-9]+$/.test(inputValue)) {
-            event.target.value = inputValue.replace(/[^0-9]/g, '')
-        }
+    const inputValue = event.target.value
+    if (!/^[0-9]+$/.test(inputValue)) {
+        event.target.value = inputValue.replace(/[^0-9]/g, '')
     }
 }
+
+const validateNumberAndLength = event => {
+    let inputValue = event.target.value
+    inputValue = inputValue.replace(/[^0-9]/g, '')
+
+    if (inputValue.length > 8) {
+        inputValue = inputValue.slice(0, 8)
+    }
+
+    event.target.value = inputValue
+}
+
 
 const getData = () => {
     const options = { method: 'GET' }
@@ -82,6 +99,7 @@ const getData = () => {
     fetch(`${url}students`, options)
         .then(response => response.json())
         .then(data => {
+            sessionStorage.setItem('studentsData', JSON.stringify(data))
             mapData(data)
         })
         .catch(err => {
@@ -96,12 +114,18 @@ const sendData = async (data) => {
         const response = await fetch(`${url}students`, options)
 
         if (response.status === 200) {
+            articles.forEach((item, index) => {
+                if (index === 2) return item.classList.add('active')
+                return item.classList.remove('active')
+            })
             getData()
+
+            console.log('hola')
         } else {
             throw new Error('La solicitud no fue exitosa')
         }
     } catch (error) {
-        throw new Error('Surgió un error: ' + error.message)
+        console.error('Surgió un error:', error.message)
     }
 }
 
@@ -115,7 +139,7 @@ const deleteEntry = (id) => {
             }
         })
         .catch(err => {
-            throw new Error(err)
+            console.error('Surgió un error:', error.message)
         })
 }
 
@@ -126,9 +150,7 @@ const fetchStudent = async (id) => {
         const response = await fetch(`${url}students/${id}`, options)
         const data = await response.json()
         return data[0]
-    } catch (err) {
-        throw new Error(err)
-    }
+    } catch (err) { console.error('Surgió un error:', error.message) }
 }
 
 const updateStudent = async (body) => {
@@ -142,7 +164,19 @@ const updateStudent = async (body) => {
             throw new Error('Algo falló en la operación')
         }
     }
-    catch (err) { throw new Error(err) }
+    catch (err) { console.error('Surgió un error:', error.message) }
+}
+
+const fetchStudentByDocument = async (doc) => {
+    const options = { method: 'GET' }
+    try {
+        const response = await fetch(`${url}students/document/${doc}`, options)
+        const data = await response.json()
+        return data
+    }
+    catch (err) {
+        console.error('Surgió un error:', err)
+    }
 }
 
 document.getElementById('addStudentsForm').addEventListener('submit', event => {
@@ -173,7 +207,7 @@ document.getElementById('addStudentsForm').addEventListener('submit', event => {
     return sendData(data)
 })
 
-const generateEditForm = (param) => {
+const generateEditForm = param => {
     return (`
         <div class="container flex">
             <div class="ctn-inputs flex">
@@ -265,9 +299,80 @@ document.getElementById('editEntryForm').addEventListener('submit', event => {
     closeEdit()
 })
 
+const generateRetiro = () => {
+    return (`
+            <div class="ctn-input">
+                <label for="newMaterialsRemovalDocument" class="label">Documento</label>
+                <input type="text" name="newMaterialsRemovalDocument" id="newMaterialsRemovalDocument"
+                class="input" value="46103559">
+            </div>
+            <button type="submit" class="btn">
+                Buscar
+            </button>
+        `)
+}
+
+const newRetiro = (param) => {
+    const materialsStorage = sessionStorage.getItem('materialsData')
+    if (!materialsStorage) return
+    const materials = JSON.parse(materialsStorage)
+
+    const materialsList = materials.map(item => {
+        return (`
+            <div class="ctn-retiro-input flex">
+                <label for="material_${item.id}">${item.name}</label>
+                <input name="material_${item.id}" id="material_${item.id}" class="input" type="text" />
+            </div>
+        `)
+    })
+
+    popUpForm.addEventListener('input', event => {
+
+    })
+
+    return (`
+        <div class="flex"><h3>Nombre: ${param.name} ${param.surname}</h3></div>
+        <div class="flex"><h3>Proyecto: ${materials[7].category}</h3></div>
+        <div class="container-materials flex">${materialsList.join('')}</div>
+    `)
+}
+
+
+const openPopUp = (type) => {
+    popUp.classList.add('active')
+
+    if (type === 'retiro') {
+        popUpTitle.innerHTML = 'Retiro de materiales'
+        popUpInside.insertAdjacentHTML('beforeend', generateRetiro())
+
+        document.getElementById('newMaterialsRemovalDocument').addEventListener('input', validateNumberAndLength)
+
+        popUpForm.addEventListener('submit', async event => {
+            event.preventDefault()
+            const response = await fetchStudentByDocument(event.target.newMaterialsRemovalDocument.value)
+            popUpInside.innerHTML = ''
+            popUpInside.insertAdjacentHTML('beforeend', newRetiro(response))
+        })
+
+        return
+    }
+}
+
+const closePopUp = () => {
+    popUp.classList.remove('active')
+    popUpInside.innerHTML = ''
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const inputElements = document.querySelectorAll('input')
     inputElements.forEach((input) => { if (input.type === 'number') { input.addEventListener('input', validateNumber) } })
 
-    getData()
+    const storedData = sessionStorage.getItem('studentsData')
+
+    if (storedData) {
+        actualyData = JSON.parse(storedData)
+        mapData(actualyData)
+    } else {
+        getData()
+    }
 })

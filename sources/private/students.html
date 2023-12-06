@@ -16,10 +16,26 @@
         <button class="btn subroute flex">Listado de alumnos</button>
     </div>
     <section class="section">
-        <article class="article  flex">
-            Retirar
-        </article>
         <article class="article active flex">
+            <div>
+                
+            </div>
+            <div id="popUp" class="popUp flex">
+                <form class="flex" id="popUpMaterials">
+                    <div class="flex" style="justify-content: space-between; width: 100%;">
+                        <h3 id="titlePopUp"></h3>
+                        <button type="reset" class="crossBtn" onclick="closePopUp()">
+                            <i class="fi fi-br-cross"></i>
+                        </button>
+                    </div>
+                    <div class="container flex" id="containerPopUp"></div>
+                </form>
+            </div>
+            <button type="button" class="btn-retiro" onclick="openPopUp('retiro')">
+                Retirar Materiales
+            </button>
+        </article>
+        <article class="article flex">
             <form class="form flex" id="addStudentsForm">
                 <div class="flex">
                     <h3>Agregar Estudiante</h3>
